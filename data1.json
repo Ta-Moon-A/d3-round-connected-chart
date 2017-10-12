@@ -1,0 +1,76 @@
+{ 
+    "nodes" : [
+        {
+           "id" : 1,
+           "name" : "node1",
+           "group" : "group1"
+        }, {
+            "id" : 2,
+            "name" : "node2",
+            "group" : "group1"
+         }, {
+            "id" : 3,
+            "name" : "node3",
+            "group" : "group1"
+         }, {
+            "id" : 4,
+            "name" : "node4",
+            "group" : "group2"
+         }, {
+            "id" : 5,
+            "name" : "node5",
+            "group" : "group2"
+         }, {
+            "id" : 6,
+            "name" : "node6",
+            "group" : "group2"
+         }, {
+            "id" : 7,
+            "name" : "node7",
+            "group" : "group3"
+         }, {
+            "id" : 8,
+            "name" : "node8",
+            "group" : "group3"
+         }, {
+            "id" : 9,
+            "name" : "node9",
+            "group" : "group3"
+         }, {
+            "id" : 10,
+            "name" : "node10",
+            "group" : "group3"
+         }
+
+    ],
+    "links" : [
+        { 
+           "source" : 1,
+           "target" : 2
+        },{ 
+            "source" : 1,
+            "target" : 3
+         },{ 
+            "source" : 1,
+            "target" : 4
+         },{ 
+            "source" : 1,
+            "target" : 5
+         },{ 
+            "source" : 1,
+            "target" : 6
+         },{ 
+            "source" : 2,
+            "target" : 7
+         },{ 
+            "source" : 2,
+            "target" : 8
+         },{ 
+            "source" : 2,
+            "target" : 9
+         },{ 
+            "source" : 2,
+            "target" : 10
+         }
+    ]
+}
