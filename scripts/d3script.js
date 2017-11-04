@@ -128,12 +128,12 @@ function renderChart(params) {
           var gradient = getGradient(d[0].data.linksNumber, d[d.length - 1].data.linksNumber, d[0].data.groupNo, d[d.length - 1].data.groupNo)
           return 'url(#' + gradient + ')';
         })
-      // .on('mouseover', function (l) {
-      //       debugger;
-      // })
-      // .on('mouseout', function (d) {
-           
-      // });
+      .on('mouseover', function (l) {
+            debugger;
+      })
+      .on('mouseout', function (d) {
+
+      });
 
 
 
@@ -164,20 +164,22 @@ function renderChart(params) {
 
       node.on('mouseover', function (d) {
         debugger;
+        if (d.data.links.length > 0) {
+          var idArrs = d.data.links.map(function (l) { return [l.target.id, l.source.id] })
+          var ids = Array.prototype.concat.apply([], idArrs)
 
-       var idArrs = d.data.links.map(function(l){ return [l.target.id, l.source.id] })
-       var ids = Array.prototype.concat.apply([], idArrs)
+          node.filter(n => !contains.call(ids, n.data.id))
+            .attr('opacity', 0.1)
+          link.filter(l => l[0].data.id != d.data.id && l[l.length-1].data.id != d.data.id)
+            .attr('opacity', 0.1)
+        }
 
-       node.filter(n => !contains.call(ids, n.data.id))
-            .attr('opacity',0.2)
-       link.filter(l => l[0].data.id != d.data.id)
-       .attr('opacity',0.2)
-      
+
       })
         .on('mouseout', function (d) {
-          node.attr('opacity',1)
-          link .attr('opacity',1)
-         
+          node.attr('opacity', 1)
+          link.attr('opacity', 1)
+
         });
 
 
