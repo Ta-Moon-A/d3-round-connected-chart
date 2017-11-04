@@ -42,15 +42,15 @@ function renderChart(params) {
   //main chart object
   var main = function (selection) {
     selection.each(function scope() {
-      
+
       var metronikPalette = {
-        group1 : ["#32C5D2","#36D7B7","#1BBC9B","#1BA39C","#26C281"],  // green
-        group2 : ["#3598DC","#578EBE","#67809F","#4B77BE","#2C3E50"],  // blue
-        group3 : ["#E08283","#F36A5A","#EF4836","#E43A45","#D91E18"],  // red
-        group5 : ["#C8D046","#F4D03F","#E87E04","#F2784B","#C49F47"],  // yellow
-        group6 : ["#8877A9","#9B59B6","#BF55EC","#8E44AD","#9A12B3"],  // purple
-        group4 : ["#BFCAD1","#ACB5C3","#95A5A6","#555555","#525E64"]   // gray
-     }
+        group1: ["#32C5D2", "#36D7B7", "#1BBC9B", "#1BA39C", "#26C281"],  // green
+        group2: ["#3598DC", "#578EBE", "#67809F", "#4B77BE", "#2C3E50"],  // blue
+        group3: ["#E08283", "#F36A5A", "#EF4836", "#E43A45", "#D91E18"],  // red
+        group5: ["#C8D046", "#F4D03F", "#E87E04", "#F2784B", "#C49F47"],  // yellow
+        group6: ["#8877A9", "#9B59B6", "#BF55EC", "#8E44AD", "#9A12B3"],  // purple
+        group4: ["#BFCAD1", "#ACB5C3", "#95A5A6", "#555555", "#525E64"]   // gray
+      }
 
       //calculated properties
       var calc = {}
@@ -103,7 +103,7 @@ function renderChart(params) {
         e.target = idToNode[e.target];
       });
 
-      
+
       var tree = cluster(d3.hierarchy(attrs.hierarchyData));
 
 
@@ -116,83 +116,40 @@ function renderChart(params) {
       });
 
 
-      var link = chart.patternify({ tag: 'path', selector: 'link', data : paths })
-          link.attr('d', function (d) { return line(d) })
-              .style("stroke", function (d) {
-                debugger; d;
-                console.log("  d[0].data.linksNumber  " + d[0].data.linksNumber +
-                            "  d[d.length-1].data.linksNumber  "  + d[d.length-1].data.linksNumber+ 
-                            "  d[0].data.groupNo  " + d[0].data.groupNo+
-                            "  d[d.length-1].data.groupNo  "+ d[d.length-1].data.groupNo);
+      var link = chart.patternify({ tag: 'path', selector: 'link', data: paths })
+      link.attr('d', function (d) { return line(d) })
+        .style("stroke", function (d) {
+          debugger; d;
+          // console.log("  d[0].data.linksNumber  " + d[0].data.linksNumber +
+          //   "  d[d.length-1].data.linksNumber  " + d[d.length - 1].data.linksNumber +
+          //   "  d[0].data.groupNo  " + d[0].data.groupNo +
+          //   "  d[d.length-1].data.groupNo  " + d[d.length - 1].data.groupNo);
 
-                var gradient =  getGradient(d[0].data.linksNumber, d[d.length-1].data.linksNumber, d[0].data.groupNo, d[d.length-1].data.groupNo)
-                 return 'url(#' + gradient + ')';
-              })
-              // .on('mouseover', function (l) {
-              //       link.style('stroke', null)
-              //         .style('stroke-opacity', null);
-
-              //       d3.select(this)
-              //         .style('stroke', '#d62333')
-              //         .style('stroke-opacity', 1);
-
-              //       node.selectAll('circle')
-              //         .style('fill', null);
-
-              //       node.filter(function (n) { return n === l[0] || n === l[l.length - 1]; })
-              //         .selectAll('circle')
-              //         .style('fill', 'black');
-              // })
-              // .on('mouseout', function (d) {
-              //       link.style('stroke', null)
-              //         .style('stroke-opacity', null);
-              //       node.selectAll('circle')
-              //         .style('fill', null);
-              // });
-
-    
-
-      var node = chart.patternify({ tag: 'g', selector: 'node', data : tree.leaves() })
-          node.attr('transform', function (d) { return 'translate(' + xAccessor(d) + ',' + yAccessor(d) + ')'; })
-
-        //  node.on('mouseover', function (d) {
-        //             node.style('fill', null);
-        //             d3.select(this).selectAll('circle').style('fill', 'black');
-
-        //             var nodesToHighlight = paths.map(function (e) { return e[0] === d ? e[e.length - 1] : e[e.length - 1] === d ? e[0] : 0 })
-        //                                         .filter(function (d) { return d; });
-                  
-        //             node.filter(function (d) { return nodesToHighlight.indexOf(d) >= 0; })
-        //                 .selectAll('circle')
-        //               .style('fill', '#555');
-                    
-        //             link.style('stroke-opacity', function (link_d) {
-        //               return link_d[0] === d | link_d[link_d.length - 1] === d ? 1 : null;
-        //             })
-        //             .style('stroke', function (link_d) {
-        //               return link_d[0] === d | link_d[link_d.length - 1] === d ? '#d62333' : null;
-        //             });
-        //       })
-        //       .on('mouseout', function (d) {
-        //               link
-        //                 .style('stroke-opacity', null)
-        //                 .style('stroke', null);
-        //               node.selectAll('circle')
-        //                 .style('fill', null);
-        //       });
+          var gradient = getGradient(d[0].data.linksNumber, d[d.length - 1].data.linksNumber, d[0].data.groupNo, d[d.length - 1].data.groupNo)
+          return 'url(#' + gradient + ')';
+        })
+      // .on('mouseover', function (l) {
+      //       debugger;
+      // })
+      // .on('mouseout', function (d) {
+           
+      // });
 
 
 
-        
+      var node = chart.patternify({ tag: 'g', selector: 'node', data: tree.leaves() })
+      node.attr('transform', function (d) { return 'translate(' + xAccessor(d) + ',' + yAccessor(d) + ')'; })
+
+
       node.append('rect')
-      .attr('width', 8)
-      .attr('height', d => (d.data.linksNumber + 1) * 5)
-      .attr('x', -4)
-      .attr('y', function (d) { return -((d.data.linksNumber + 1) * 5) - 3 })
-      .style("fill", function(d){
+        .attr('width', 8)
+        .attr('height', d => (d.data.linksNumber + 1) * 5)
+        .attr('x', -4)
+        .attr('y', function (d) { return -((d.data.linksNumber + 1) * 5) - 3 })
+        .style("fill", function (d) {
           return getColor(d.data.groupNo, d.data.linksNumber)
-       })
-      .attr('transform', function (d) {return 'rotate(' + d.x + ')'; })
+        })
+        .attr('transform', function (d) { return 'rotate(' + d.x + ')'; })
 
 
       node.append('text')
@@ -201,28 +158,47 @@ function renderChart(params) {
         .style('text-anchor', function (d) { return d.x < 180 ? 'start' : 'end'; })
         .attr('transform', function (d) { return 'rotate(' + (d.x < 180 ? d.x - 90 : d.x + 90) + ')'; })
         .text(function (d) { return d.data.name; })
-        .style("fill", function(d){
+        .style("fill", function (d) {
           return getColor(d.data.groupNo, null)
         })
+
+      node.on('mouseover', function (d) {
+        debugger;
+
+       var idArrs = d.data.links.map(function(l){ return [l.target.id, l.source.id] })
+       var ids = Array.prototype.concat.apply([], idArrs)
+
+       node.filter(n => !contains.call(ids, n.data.id))
+            .attr('opacity',0.2)
+       link.filter(l => l[0].data.id != d.data.id)
+       .attr('opacity',0.2)
+      
+      })
+        .on('mouseout', function (d) {
+          node.attr('opacity',1)
+          link .attr('opacity',1)
+         
+        });
 
 
       function processData() {
 
         var uniqueGroups = [...new Set(attrs.data.nodes.map(item => item.group))];
-        
+
         var copyArray = attrs.data.nodes.slice(0);
 
-        attrs.data.nodes = copyArray.map(function(d){
+        attrs.data.nodes = copyArray.map(function (d) {
           return {
-                id : d.id,
-                name : d.name,
-                group : d.group,
-                groupNo : uniqueGroups.indexOf(d.group)+1,
-                linksNumber : attrs.data.links.filter(l => l.source == d.id).length
-              }
+            id: d.id,
+            name: d.name,
+            group: d.group,
+            groupNo: uniqueGroups.indexOf(d.group) + 1,
+            linksNumber: attrs.data.links.filter(l => l.source == d.id).length,
+            links: attrs.data.links.filter(l => l.source == d.id || l.target == d.id)
+          }
         })
 
-       var nested_data = d3.nest()
+        var nested_data = d3.nest()
           .key(function (d) { return d.group; })
           .entries(attrs.data.nodes);
 
@@ -235,10 +211,7 @@ function renderChart(params) {
 
         attrs.hierarchyData.children = mappedData;
 
-       
 
-        console.log(attrs.hierarchyData);
-        console.log(uniqueGroups);
       }
 
 
@@ -299,40 +272,66 @@ function renderChart(params) {
         var color = '#ccc'
 
         if (linksNumber == null || linksNumber <= 3) {
-          color = metronikPalette["group"+group][0]
+          color = metronikPalette["group" + group][0]
         } else if (linksNumber > 3 && linksNumber <= 15) {
-          color = metronikPalette["group"+group][1]
+          color = metronikPalette["group" + group][1]
         } else if (linksNumber > 15 && linksNumber <= 25) {
-          color = metronikPalette["group"+group][2]
+          color = metronikPalette["group" + group][2]
         } else if (linksNumber > 25 && linksNumber <= 35) {
-          color = metronikPalette["group"+group][3]
+          color = metronikPalette["group" + group][3]
         } else if (linksNumber > 35) {
-          color = metronikPalette["group"+group][4]
+          color = metronikPalette["group" + group][4]
         }
-       
+
         return color;
-    }
-    
-      function getGradient(startlinksNumber, endlinksNumber, startGroup, endGroup) {
-      
-          var gradientId = "gradient" + gradientCounter;
-      
-          var gradient = svgDefs.append("svg:linearGradient")
-              .attr("id", gradientId);
-      
-          gradient.append("svg:stop")
-              .attr("offset", "10%")
-              .attr("stop-color", getColor(startGroup, startlinksNumber))
-      
-          gradient.append("svg:stop")
-              .attr("offset", "90%")
-              .attr("stop-color", getColor(endGroup, endlinksNumber))
-      
-          gradientCounter++;
-      
-          return gradientId;
       }
 
+      function getGradient(startlinksNumber, endlinksNumber, startGroup, endGroup) {
+
+        var gradientId = "gradient" + gradientCounter;
+
+        var gradient = svgDefs.append("svg:linearGradient")
+          .attr("id", gradientId);
+
+        gradient.append("svg:stop")
+          .attr("offset", "10%")
+          .attr("stop-color", getColor(startGroup, startlinksNumber))
+
+        gradient.append("svg:stop")
+          .attr("offset", "90%")
+          .attr("stop-color", getColor(endGroup, endlinksNumber))
+
+        gradientCounter++;
+
+        return gradientId;
+      }
+
+      var contains = function (needle) {
+        // Per spec, the way to identify NaN is that it is not equal to itself
+        var findNaN = needle !== needle;
+        var indexOf;
+
+        if (!findNaN && typeof Array.prototype.indexOf === 'function') {
+          indexOf = Array.prototype.indexOf;
+        } else {
+          indexOf = function (needle) {
+            var i = -1, index = -1;
+
+            for (i = 0; i < this.length; i++) {
+              var item = this[i];
+
+              if ((findNaN && item !== item) || item === needle) {
+                index = i;
+                break;
+              }
+            }
+
+            return index;
+          };
+        }
+
+        return indexOf.call(this, needle) > -1;
+      };
 
       // smoothly handle data updating
       updateData = function () {
